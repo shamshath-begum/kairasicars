@@ -1,0 +1,8 @@
+.bg{
+    background-image: url(../assets/background.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 86vh;
+  z-index: -1;
+}

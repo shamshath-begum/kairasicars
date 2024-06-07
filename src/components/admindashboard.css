@@ -1,0 +1,19 @@
+.admin{
+    display: flex;
+    width: 100%;
+    /* gap: 10px; */
+    height: 100vh;
+    margin-top: 20px;
+    background-color: #6FDCE3;
+}
+ul li{
+    margin-top: 30px;
+    font-size: 25px;
+    /* text-align: center; */
+    list-style: none;
+    color: white;
+    
+}
+Link{
+    text-decoration: none;
+}
