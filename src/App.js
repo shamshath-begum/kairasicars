@@ -5,8 +5,8 @@ import Login  from "./components/pages/Login"
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import AdminDashboard from "./components/AdminDashboard";
 import "./App";
-import LoanMasters from "./components/LoanMasters";
-import EMI from "./components/EMI";
+
+
 import Defaulters from "./components/Defaulters";
 import Capital from "./components/Capital";
 import Repose from "./components/Repose";
@@ -15,7 +15,15 @@ import CustomerDetails from "./components/customer/CustomerDetails";
 import LoanRegistration from "./components/loan/LoanRegistration";
 import Footer from "./components/Footer";
 import CustomerEdit from "./components/customer/CustomerEdit";
-export const url="http://localhost:8000"
+import CustomerView from "./components/customer/CustomerView";
+import LoanDetails from "./components/loan/LoanDetails";
+import EMISingle from "./components/emi/EMISingle";
+import EMIMultiple from "./components/emi/EMIMultiple";
+import EmiSingleCustomerDetails from "./components/emi/EmiSingleCustomerDetails";
+import SingleCustomerDetails from "./components/emi/SingleCustomerDetails";
+// import EmiSingleCustomerDetails from "./components/emi/EmiSingleCustomerDetails";
+
+export const url="http://localhost:8080"
 
 
 function App() {
@@ -29,18 +37,23 @@ function App() {
         <Route path="/signup"element={<SignUp/>}/>
         <Route path="/admin-dashboard"element={<AdminDashboard/>}/>
         <Route path="/customer-registration"element={<CustomerRegistration/>}/>
-        <Route path="/customer-edit"element={<CustomerEdit/>}/>
+        <Route path="/customer-edit/:id"element={<CustomerEdit/>}/>
         <Route path="/customer-details"element={<CustomerDetails/>}/>
+        <Route path="/customer-view/:id"element={<CustomerView/>}/>
         <Route path="/loan-registration"element={<LoanRegistration/>}/>
-        
-        <Route path="/loan-masters"element={<LoanMasters/>}/>
-        <Route path="/emi"element={<EMI/>}/>
+        <Route path="/loan-details"element={<LoanDetails/>}/>
+        <Route path="/loan-details/:customerID"element={<LoanDetails/>}/>
+      
+        <Route path="/emi-single"element={<EMISingle/>}/>
+        <Route path="/emi-multiple"element={<EMIMultiple/>}/>
+        <Route path="/emi-single-view/:customerID"element={<EmiSingleCustomerDetails/>}/>
+        <Route path="/emi-single-customer-details/:customerID"element={<SingleCustomerDetails/>}/>
         <Route path="/defaulters"element={<Defaulters/>}/>
-        <Route path="/profit"element={<Capital/>}/>
+        <Route path="/capital"element={<Capital/>}/>
         <Route path="/repose"element={<Repose/>}/>
        
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
       </BrowserRouter>
       
     </div>

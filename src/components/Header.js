@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/userSlice";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import logo from "../assets/car-logo.jpg"
+import logo from "../assets/logo.png"
 
 function Header() {
     const user = useSelector((state) => state.admin);
@@ -24,9 +24,9 @@ function Header() {
   return <>
   <Navbar expand="lg"className='nav'>
       <Container>
-        <Navbar.Brand href="/"style={{color:"white"}}>
-        <Image src={logo} roundedCircle style={{width:60,marginRight:20,height:60}}/>
-            KAIRASI CARS</Navbar.Brand>
+        <Navbar.Brand href="/"style={{marginTop:18}}>
+        <Image src={logo} roundedCircle style={{width:65,marginRight:20,height:65}}/>
+            <span style={{marginLeft:200,fontSize:40,color:"#FAEF5D"}}>SREE KAIRAASI MOTAR FINANCE (P) LTD.</span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

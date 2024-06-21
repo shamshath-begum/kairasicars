@@ -55,23 +55,24 @@ function Login() {
         })
         console.log(res)
         if(res.status===200){
-          console.log("first")
+          
           localStorage.setItem("token",res.data.token)
             
             console.log(res.data.meassage)
             toast.success(res.data.meassage)
-            console.log("second")
+            
             dispatch(login(res.data))
            
             setInputData({...inputData ,email:"",password:""})
-            console.log("qqqqqqqqqq")
+      
             navigate("/admin-dashboard")
            
         }else{
-            toast.error(res.data.error)
+          console.log(res.data.message)
+            toast.error(res.data.message)
         }
     } catch (error) {
-        console.log(error)
+        toast.error(error.response.data.message)
     }
     }
   };

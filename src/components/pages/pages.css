@@ -83,8 +83,8 @@ section .form_data{
     margin-top: 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #e7636a;
-    background-color: #f0c4cc;
+    color: #638de7;
+    background-color: #c4cbf0;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -96,7 +96,7 @@ form .btn{
     border: none;
     outline: none;
     border-radius: 5px;
-    background-color:#ec1923;
+    background-color:#5C2FC2;
     color: #fff;
     font-weight: 600;
     font-size: 18px;
@@ -107,7 +107,7 @@ form .btn{
 
 
 form .btn:hover{
-    background-color: #ec8d9d;
+    background-color: #8d9eec;
 }
 
 .form_data form p{
@@ -117,7 +117,7 @@ form .btn:hover{
 
 .form_data form a{
     text-decoration: none;
-    color:#d41c2b ;
-    border-bottom: 2px solid #ec0606;
+    color:#441cd4 ;
+    border-bottom: 2px solid #2806ec;
 }
 

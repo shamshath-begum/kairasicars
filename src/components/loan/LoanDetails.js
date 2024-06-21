@@ -4,20 +4,29 @@ import axios from "axios";
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table';
 import { url } from '../../App';
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {loanRedux } from '../../redux/loanSlice';
 
 
 
 function LoanDetails() {
     let[loan,setLoan]=useState([])
+    console.log(loan)
 
-console.log(loan)
+    
+let navigate=useNavigate()
+
+let dispatch=useDispatch()
+
 
     let getData=async()=>{
         try {
           let res=await axios.get(`${url}/loan-details`)
+          console.log(res.data.loanDetails)
           if(res.status===201){
-            setCustomers(res.data.loan)
+            setLoan(res.data.loanDetails)
+            dispatch(loanRedux(res.data))
           }
         } catch (error) {
           console.log(error)
@@ -29,20 +38,25 @@ console.log(loan)
                     },[])
   return <>
    <div style={{width:650,color:"white"}}>
-      <h1>Customers Details</h1>
+      <h1>Loan Details</h1>
       <div className=" container-fluid mt-3 ">
-        <Table striped bordered hover style={{width:880}} >
+        <Table striped bordered hover style={{width:1670}} >
           <thead>
             <tr>
               <th>#</th>
-              <th>name</th>
-              <th>MobileNumber</th>
+              <th>Name</th>
+
+              <th>CustomerID</th>
               <th>LoanAmount</th>
               <th>RateOfInterest</th>
               <th>months</th>
-              <th>StartingDate</th>
-              <th>EndingDate</th>
+              <th>Interest(p.m)</th>
+              <th>TotalAmount</th>
+              <th>Capital</th>
               <th>EMI Amount</th>
+              <th>EMI StartingDate</th>
+              <th>EMI EndingDate</th>
+            
               <th >Actions</th>
               
             </tr>
@@ -53,12 +67,17 @@ console.log(loan)
                 <tr key={i} style={{ cursor: "pointer" }}>
                   <td>{i + 1}</td>
                   <td>{e.name}</td>
-                  <td>{e.mobileNumber}</td>
+                  <td>{e.customerID}</td>
                   <td>{e.loanAmount}</td>
                   <td>{e.rateOfInterest}</td>
                   <td>{e.months}</td>
+                  <td>{e.InterestAmount}</td>
+                  <td>{e.TotalAmount}</td>
+                  <td>{e.Capital}</td>
                   <td>{e.emiAmount}</td>
-                  
+                  <td>{e.startingDate}</td>
+                  <td>{e.endingDate}</td>
+                 
                   <td>
                   <Button style={{backgroundColor:"#121481"}}
                   //  onClick={()=>navigate(`/edit-user/${i}`)}
@@ -81,6 +100,10 @@ console.log(loan)
             })}
           </tbody>
         </Table>
+        <Button  type="button" onClick={()=>navigate("/admin-dashboard")} style={{backgroundColor:"#5C2FC2",width:300,borderRadius:10}}>
+        Back to AdminDashboard
+      </Button>
+       
       </div>
     </div>
    

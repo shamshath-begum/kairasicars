@@ -5,12 +5,14 @@ import { url } from "../../App";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 
 function CustomerEdit() {
+
+  let {id}=useParams();
     const [inputdata, setInputData] = useState({
         name: "",
         email:"",
@@ -112,11 +114,11 @@ console.log("data")
               
               try {
 
-                let res=await axios.post(`${url}/customer-registration`,{ name,email,adharNumber,mobileNumber,officeAddress,reference,alternativeNumber,gender,residentialAddress},
+                let res=await axios.put(`${url}/customer-edit/${id}`,{ name,email,adharNumber,mobileNumber,officeAddress,reference,alternativeNumber,gender,residentialAddress},
                 
               )
                 console.log(res)
-                if(res.status===201){
+                if(res.status===200){
                     toast.success(res.data.message)
                     setInputData({...inputdata,
                         name: "",
@@ -146,13 +148,27 @@ console.log("data")
           }
       
     
+          let getData=async()=>{
+            try {
+              let res=await axios.get(`${url}/customer-edited/${id}`)
+              if(res.status===200){
+                setInputData(res.data)
+              }
+            } catch (error) {
+              console.log(error)
+            }
+          }
+
+          useEffect(()=>{
+            getData();
+          },[id])
             // useEffect(()=>{
             //     if(image){
             //       setPreview(URL.createObjectURL(image))
             //     }
             //   },[image])
   return <>
-  <h1>shama</h1>
+  
   <div style={{backgroundColor:"#FEFAF6",color:'#01204E',height:"85vh",paddingTop:50}}>
     <h1 className='text-center mb-5 '>CustomerMasters</h1>
 

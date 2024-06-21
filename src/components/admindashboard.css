@@ -17,3 +17,7 @@ ul li{
 Link{
     text-decoration: none;
 }
+.search{
+    display: flex;
+    justify-content: end
+}

@@ -6,27 +6,28 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Link, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import Dropdown from 'react-bootstrap/Dropdown';
+
 
 function CustomerRegistration() {
-
-  
-    const [inputdata, setInputData] = useState({
+const [inputdata, setInputData] = useState({
         name: "",
         email:"",
         adharNumber:"",
         mobileNumber: "",
         alternativeNumber:"",
-        gender: "",
-        residentialAddress:"",
+      landMark: "",
+      position:"",
+      customerID:"",
+        // residentialAddress:"",
         officeAddress:"",
         reference:"",
-        //  documents:"",
-    
+        profession:"",
+    monthlyIncome:"",
         
       });
       console.log(inputdata)
-      const[image,setImage]=useState("")
+      const[image,setImage]=useState(null)
+      // const[documents,setDocuments]=useState([])
       console.log("image",image)
     const[preview,setPreview]=useState("")
     
@@ -47,22 +48,27 @@ function CustomerRegistration() {
     
       
     
-      let setImageFile=(e)=>{
+      const handleImageFile=(e)=>{
           console.log(e.target.files[0])
-          setImage(e.target.files[0])
+          const imageVariable=e.target.files[0]
+          setImage(imageVariable)
         }
     
+        // const handleDocumentFile=(e)=>{
+        //   console.log(e.target.files[0])
+        //   const imageVariable=e.target.files[0]
+        //   setDocuments(imageVariable)
+        // }
    
-//     const{name,email,adharNumber,mobileNumber}=inputdata
-// console.log(inputdata)
+
     
    
         const submitUserData = async(e) => {
             e.preventDefault();
-        console.log("shama")
+      
         
       
-        const { name, email,adharNumber, mobileNumber,image,alternativeNumber,gender,officeAddress,reference ,residentialAddress} = inputdata;
+        const { name,profession,position,customerID, email,adharNumber, mobileNumber,alternativeNumber,monthlyIncome,landMark,officeAddress,reference } = inputdata;
         
             if (name === "") {
               toast.error("name is Required !")
@@ -79,44 +85,63 @@ function CustomerRegistration() {
               toast.error("AlternativeMobileNumber is Required !")
             } else if (mobileNumber.length > 10) {
               toast.error("Enter Valid Mobile!f")
-            } else if (gender === "") {
-              toast.error("Gender is Required !")
+            } else if (landMark === "") {
+              toast.error("LandMark is Required !")
             } else if (adharNumber === "") {
               toast.error("AdharNumber is Required !")
-            }else if(residentialAddress==="") {
-                toast.error("Residential_address is Required !")
             }
+            // else if(residentialAddress==="") {
+            //     toast.error("Residential_address is Required !")
+            // }
             else if(officeAddress===""){
                 toast.error("OfficeAddress is Required !")
             }
             else if(reference===""){
                 toast.error("Reference is Required !")
             }else{
-              // console.log(image);
+              console.log(image);
             console.log("Customer Registered Successfully")
-
+            
               const data = new FormData();
               data.append("name",name)
               data.append("adharNumber",adharNumber)
               data.append("email",email)
               data.append("mobileNumber",mobileNumber)
-              data.append("gender",gender)
+              data.append("landMark",landMark)
+              data.append("position",position)
+              data.append("customerID",customerID)
               data.append("alternativeNumber",alternativeNumber)
-              data.append("image",image)
-              data.append("residentialAddres",residentialAddress)
+              await data.append("image",image)
+              // data.append("documents",documents)
+              // data.append("residentialAddres",residentialAddress)
               data.append("officeAddress",officeAddress)
               data.append("reference",reference)
+              data.append("profession",profession)
+              data.append("monthlyIncome",monthlyIncome)
               
-              console.log(data)
-console.log("data",data)
-              
+      
+
+// const data = new FormData();
+// console.log(documents)
+//     if (documents) {
+//       for (let i = 0; i < documents.length; i++) {
+//         data.append('documents', documents[i]);
+//       }
+//     }
+//     data.append('image', image);
+    
+    console.log(data)
+              console.log(data.get("image"));
+// console.log(data.get("documents"))
+
               try {
 
-                let res=await axios.post(`${url}/customer-registration`,data,
-                {
-                  "Content-Type":"multipart/form-data"
+                let res= await axios.post(`${url}/customer-registration`,data,{
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
                 }
-                // { name,email,adharNumber,image,mobileNumber,officeAddress,reference,alternativeNumber,gender,residentialAddress},
+                
                 
                 
               )
@@ -129,14 +154,18 @@ console.log("data",data)
                         adharNumber:"",
                         mobileNumber: "",
                         alternativeNumber:"",
-                        gender: "",
-                        residentialAddress:"",
-                       
+                        landMark:"",
+                        position:"",
+                        customerID:"",
+                        monthlyIncome:"",
+                        // residentialAddress:"",
+                       profession:"",
                         officeAddress:"",
                         reference:""
                       })
 
                         setImage("")
+                        // setDocuments("")
                         setPreview("")
                         navigate("/admin-dashboard")
                     }else {
@@ -149,7 +178,7 @@ console.log("data",data)
             }
             }
           }
-      
+        
     
             useEffect(()=>{
                 if(image){
@@ -162,87 +191,154 @@ console.log("data",data)
 
   return <>
   <div style={{backgroundColor:"#FEFAF6",color:'#01204E',height:"85vh",paddingTop:50}}>
-    <h1 className='text-center mb-5 '>CustomerMasters</h1>
+    <h1 className='text-center mb-5 '>Customer Masters</h1>
 
-    <Form>
+    <Form style={{marginLeft:150,marginRight:150}}>
               <Row>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicName">
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label> Name</Form.Label>
                   <Form.Control type="text" name='name' value={inputdata.name} onChange={setInputValue} />
                 </Form.Group>
+{/* 
+                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
+                  <Form.Label>Select Your Profession</Form.Label>
+                  <Form.Check
+                    type={"radio"}
+                    label={`employee`}
+                    name="profession"
+                    value={"employee"}
+                    onChange={setInputValue}
+                  />
+                  <Form.Check
+                    type={"radio"}
+                    label={`Self_Employee`}
+                    name="profession"
+                    value={"Self_Employee"}
+                    onChange={setInputValue}
+                  />
+                  <Form.Check
+                    type={"radio"}
+                    label={`partnership`}
+                    name="profession"
+                    value={"partnership"}
+                    onChange={setInputValue}
+                  />
+                  <Form.Check
+                    type={"radio"}
+                    label={`governmentEmployee`}
+                    name="profession"
+                    value={"governmentEmployee"}
+                    onChange={setInputValue}
+                  />
+                  <Form.Check
+                    type={"radio"}
+                    label={`privateEmployee`}
+                    name="profession"
+                    value={"privateEmployee"}
+                    onChange={setInputValue}
+                  />
+                  <Form.Check
+                    type={"radio"}
+                    label={`others`}
+                    name="profession"
+                    value={"others"}
+                    onChange={setInputValue}
+                  />
+                </Form.Group>  */}
 
-                {/* <Form.Group className="mb-3 col-lg-4" controlId="formBasicName">
+
+
+
+
+                <Form.Group className="mb-3 col-lg-4" >
                 <Form.Label> Professinal Details</Form.Label>
-                <Form.Select className="mb-3 col-lg-4">
+                <Form.Select  value={inputdata.profession }name="profession" onChange={setInputValue}>
                
-      
+                <option value="others" disabled>Profession</option>
       <option value="employee">Employee</option>
-      <option value="self Employee">Self Employee</option>
+      <option value="selfEmployee">Self Employee</option>
       <option value="partnership">Partnership</option>
       <option value="governmentEmployee">GovernmentEmployee</option>
-      <option value="private Employee">Private Employee</option>
+      <option value="privateEmployee">Private Employee</option>
       <option value="others">Others</option>
       
     </Form.Select>
-    </Form.Group> */}
-    {/* <Form.Group className="mb-3 col-lg-4" controlId="formBasicEmail">
-                  <Form.Label> Monthly Income</Form.Label>
-                  <Form.Control type="Number" name='monthlyIncome' value={inputdata.monthlyIncome} onChange={setInputValue} />
-                </Form.Group>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicEmail">
+    </Form.Group>
+
+    <Form.Group className="mb-3 col-lg-4" >
+                <Form.Label>Monthly Income</Form.Label>
+                <Form.Select  value={inputdata.monthlyIncome }name="monthlyIncome" onChange={setInputValue}>
+               
+                <option value="1 - 25,000" disabled>Monthly Income</option>
+      <option value="1 - 25,000">1 - 25,000</option>
+      <option value="25,001 - 50,000">25,001 - 50,000</option>
+      <option value="50,001 - 75,000">50,001 - 75,000</option>
+      <option value="75,001 - 1,00,000">75,001 - 1,00,000</option>
+      <option value="more than 1,00,000">more than 1,00,000</option>
+      <option value="others">Others</option>
+      
+    </Form.Select>
+    </Form.Group>
+                {/* <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label>Upload Documents</Form.Label>
-                  <Form.Control type="file" name='uploaddocuments' value={inputdata.uploaddocuments} onChange={setInputValue} />
+                  <Form.Control type="file" name='documents' id="documents"onChange={handleDocumentFile}  />
                 </Form.Group> */}
-
-                
-
-
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicEmail">
+                <Form.Group className="mb-3 col-lg-4" >
+                  <Form.Label>AdharNumber</Form.Label>
+                  <Form.Control type="number" name='adharNumber' value={inputdata.adharNumber} onChange={setInputValue}  />
+                </Form.Group>
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label> EMail</Form.Label>
                   <Form.Control type="email" name='email' value={inputdata.email} onChange={setInputValue} />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicadharNumber">
-                  <Form.Label>adharNumber</Form.Label>
-                  <Form.Control type="number" name='adharNumber' value={inputdata.adharNumber} onChange={setInputValue}  />
-                </Form.Group>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicmobileNumber">
+                
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label>Mobile Number</Form.Label>
                   <Form.Control type="number" name='mobileNumber' value={inputdata.mobileNumber} onChange={setInputValue} />
                 </Form.Group>
 
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicalternativemobileNumber">
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label>Alternative Number</Form.Label>
                   <Form.Control type="number" name='alternativeNumber' value={inputdata.alternativeNumber} onChange={setInputValue} />
                 </Form.Group>
-
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicgender">
-                  <Form.Label>Gender</Form.Label>
-                  <Form.Control type="text" name='gender' value={inputdata.gender} onChange={setInputValue} />
-                </Form.Group>
-
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicResidentialAddress">
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label> Residential_address</Form.Label>
                   <Form.Control type="text" name='residentialAddress' value={inputdata.residentialAddress} onChange={setInputValue}  />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicofficeAddress">
-                  <Form.Label> officeAddress</Form.Label>
+                <Form.Group className="mb-3 col-lg-4" >
+                  <Form.Label> OfficeAddress</Form.Label>
                   <Form.Control type="text" name='officeAddress' value={inputdata. officeAddress} onChange={setInputValue}  />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicofficeAddress">
+                <Form.Group className="mb-3 col-lg-4" >
+                  <Form.Label>Land Mark</Form.Label>
+                  <Form.Control type="text" name='landMark' value={inputdata.landMark} onChange={setInputValue} />
+                </Form.Group>
+                <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label>Reference</Form.Label>
                   <Form.Control type="text" name='reference' value={inputdata. reference} onChange={setInputValue}  />
                 </Form.Group>
+                <Form.Group className="mb-3 col-lg-4" >
+                <Form.Label>Position</Form.Label>
+                <Form.Select  value={inputdata.position }name="position" onChange={setInputValue}>
+               
+                <option value="IN" disabled>position</option>
+      <option value="IN">IN</option>
+      <option value="OUT">OUT</option>
+      <option value="PENDING">PENDING</option>
+      <option value="others">Others</option>
+      
+    </Form.Select>
+    </Form.Group>
 
-                {/* <Form.Group className="mb-3 col-lg-4" controlId="formBasicImage">
-            <Form.Label>Image</Form.Label>
-            <Form.Control type="file" name='image' id="image" onChange={setImageFile} />
-            {preview && <img src={preview} alt="preview" style={{ width: "100px", marginTop: "10px" }} />}
-          </Form.Group> */}
-
-                <Form.Group className="mb-3 col-lg-4" controlId="formBasicImage">
-                  <Form.Label>Image</Form.Label>
-                  <Form.Control type="file" name='image' id="image" onChange={setImageFile}  />
+    <Form.Group className="mb-3 col-lg-4" >
+                  <Form.Label>CustomerID</Form.Label>
+                  <Form.Control type="number" name='customerID' value={inputdata.customerID} onChange={setInputValue} />
                 </Form.Group>
+
+                <Form.Group className="mb-3 col-lg-4" >
+                  <Form.Label>Image</Form.Label>
+                  <Form.Control type="file" name='image' id="image" onChange={handleImageFile}  />
+                </Form.Group> 
 
                 <Button  type="submit" onClick={submitUserData} style={{backgroundColor:"#5C2FC2",width:200,borderRadius:10}}>
         SUBMIT

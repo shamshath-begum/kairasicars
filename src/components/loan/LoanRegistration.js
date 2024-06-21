@@ -12,7 +12,7 @@ import { url } from '../../App';
 function LoanRegistration() {
   const [inputdata, setInputData] = useState({
     name: "",
-   mobileNumber:"",
+   customerID:"",
     loanAmount:"",
     rateOfInterest: "",
     months:"",
@@ -37,18 +37,15 @@ function LoanRegistration() {
 console.log("shama")
 
 
-const { name, mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingDate} = inputdata;
+const { name,customerID ,loanAmount,rateOfInterest,months,startingDate,endingDate} = inputdata;
 
     if (name === "") {
       toast.error("name is Required !")
     }
-     else if (mobileNumber === "") {
-      toast.error("Mobile Number is Required !")
+     else if (customerID === "") {
+      toast.error("customerID is Required !")
     }
-    
-     else if (mobileNumber.length > 10) {
-      toast.error("Enter Valid Mobile!f")
-    } else if (loanAmount === "") {
+   else if (loanAmount === "") {
       toast.error("loanAmount is Required !")
     } else if (rateOfInterest === "") {
       toast.error("rateOfInterest is Required !")
@@ -65,7 +62,7 @@ const { name, mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingD
       
       try {
 
-        let res=await axios.post(`${url}/loan-registration`,{ name,mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingDate},
+        let res=await axios.post(`${url}/loan-registration`,{ name,customerID,loanAmount,rateOfInterest,months,startingDate,endingDate},
         
       )
         console.log(res)
@@ -74,7 +71,7 @@ const { name, mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingD
             setInputData({...inputdata,
                 name: "",
                 endingDate:"",
-                mobileNumber: "",
+                customerID: "",
                 loanAmount :"",
                startingDate:"",
                 rateOfInterest:"",
@@ -85,7 +82,7 @@ const { name, mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingD
 
                
                 
-                // navigate("/admin-dashboard")
+                navigate("/admin-dashboard")
             }else {
             toast.error(res.data.error)
         }
@@ -98,38 +95,38 @@ const { name, mobileNumber,loanAmount,rateOfInterest,months,startingDate,endingD
   }
     
   return <>
-  <div className="container-fluid pt-5 pb-5" style={{backgroundColor:"#FFFDB5",color:'#01204E',height:"85vh"}}>
+  <div className="container-fluid pt-5 pb-5" style={{backgroundColor:"#FFFDB5",color:'#01204E',height:"95vh"}}>
     <h1 className='text-center '>Loan Masters Registration </h1>
     <Form style={{marginLeft:500}}>
               <Row> 
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicalternativemobileNumber">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Name</Form.Label>
                   <Form.Control type="text" name='name' value={inputdata.name} onChange={setInputValue} />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicalternativemobileNumber">
-                  <Form.Label>Mobile Number</Form.Label>
-                  <Form.Control type="number" name='mobileNumber' value={inputdata.mobileNumber} onChange={setInputValue} />
+                <Form.Group className="mb-3 col-lg-8" >
+                  <Form.Label>Customer ID</Form.Label>
+                  <Form.Control type="number" name='customerID' value={inputdata.customerID} onChange={setInputValue} />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicName">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Loan Amount</Form.Label>
                   <Form.Control type="number" name='loanAmount' value={inputdata.loanAmount} onChange={setInputValue} />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Rate Of Interest</Form.Label>
                   <Form.Control type="number" name='rateOfInterest' value={inputdata.rateOfInterest} onChange={setInputValue} />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicadharNumber">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Months</Form.Label>
                   <Form.Control type="number" name='months' value={inputdata.months} onChange={setInputValue}  />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicadharNumber">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Starting Date</Form.Label>
                   <Form.Control type="text" name='startingDate' value={inputdata.startingDate} onChange={setInputValue}  />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-8" controlId="formBasicadharNumber">
+                <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Ending Date</Form.Label>
                   <Form.Control type="text" name='endingDate' value={inputdata.endingDate} onChange={setInputValue}  />
-                </Form.Group>
+                </Form.Group> 
                 
                 
 
