@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     /* gap: 10px; */
-    height: 100vh;
+    height: 100%;
     margin-top: 20px;
     background-color: #6FDCE3;
 }
@@ -19,5 +19,5 @@ Link{
 }
 .search{
     display: flex;
-    justify-content: end
+    justify-content: end;
 }

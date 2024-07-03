@@ -16,6 +16,8 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table';
 
 function AdminDashboard() {
+  const[input,setInput]=useState("")
+  const[Results,setResults]=useState([])
   const user = useSelector((state) => state.admin);
   console.log(user);
   const dispatch=useDispatch()
@@ -25,30 +27,30 @@ let[customers,setCustomers]=useState([])
 
 console.log(customers)
 
-const[search,setSearch]=useState("")
 
-  let getData=async()=>{
-    try {
-      let res=await axios.get(`${url}/customer-details`)
-      if(res.status===201){
-        setCustomers(res.data.customers)
-        dispatch(details(res.data))
-      }
-    } catch (error) {
-      console.log(error)
-    }
-                }
 
-                useEffect(()=>{
-                  getData()
-                },[])
+  // let getData=async()=>{
+  //   try {
+  //     let res=await axios.get(`${url}/customer-details`)
+  //     if(res.status===201){
+  //       setCustomers(res.data.customers)
+  //       dispatch(details(res.data))
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  //               }
+
+  //               useEffect(()=>{
+  //                 getData()
+  //               },[])
 
 let deleteCustomer=async(id)=>{
 try {
   let res=await axios.delete(`${url}/delete/${id}`)
   if(res.status===200){
     console.log(res)
-    getData()
+    // getData()
     toast.success(res.data.message)
   }
 } catch (error) {
@@ -56,9 +58,22 @@ try {
 }
 }
 
-let handleSearch=async(search)=>{
-let res=await axios.get(`${url}/getByName/${search}`)
-console.log(res)
+const fetchData=async(value)=>{
+let res=await axios.get(`${url}/customer-details`)
+console.log(res.data)
+let customers=res.data.customers
+
+const results=customers.filter((c)=>{
+  return c && c.name && c.name.toLowerCase().includes(value)
+})
+console.log(results)
+setResults(results)
+}
+
+let handleChange=async(value)=>{
+  setCustomers(value)
+  fetchData(value)
+
 }
 
   return<>
@@ -77,7 +92,7 @@ console.log(res)
 
       <Dropdown.Menu style={{backgroundColor:"#5C2FC2",border:"none"}}>
       <Dropdown.Item> <Link to="/customer-registration" style={{textDecoration:"none",marginLeft:40,color:"white"}}>ADD</Link></Dropdown.Item>
-      <Dropdown.Item> <Link to="/customer-details"style={{textDecoration:"none",marginLeft:40,color:"white"}}>VIEW</Link></Dropdown.Item>
+      {/* <Dropdown.Item> <Link to="/customer-details"style={{textDecoration:"none",marginLeft:40,color:"white"}}>VIEW</Link></Dropdown.Item> */}
     
       </Dropdown.Menu>
     </Dropdown>
@@ -143,16 +158,22 @@ console.log(res)
     </div>
     <div>
       <div className='search'>
-      <h1 style={{color:"white",marginRight:200}}>Customers Details</h1>
+      <h1 style={{color:"Black",marginRight:300}}>Customers Details</h1>
       <div style={{marginTop:20}} >
-        <input type="search" placeholder="Search"onChange={(e)=>setSearch(e.target.value)} />
-        <button type="submit"onClick={handleSearch}>Search</button>
+        <label style={{color:"Black",fontSize:25,fontWeight:"bold"}}>Search&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+        <input value={customers} placeholder="Type to Search"onChange={(e)=>handleChange(e.target.value)} style={{marginBottom:5,marginLeft:5,height:37,width:300}}/>
+
         </div>
       </div>
+
+      {
+
+      }
+      
       <div className=" container mt-3 ">
         <Table striped bordered hover style={{width:1370}} >
           <thead>
-            <tr>
+            <tr style={{textAlign:"center"}}>
               <th>#</th>
               <th>Name</th>
               <th>CustomerID</th>
@@ -166,17 +187,17 @@ console.log(res)
             </tr>
           </thead>
           <tbody>
-            {customers.map((e, i) => {
+            {Results.map((e, i) => {
               return (
-                <tr key={i} style={{ cursor: "pointer" }}>
+                <tr key={i} style={{ cursor: "pointer",textAlign:"center" }}>
                   <td>{i + 1}</td>
-                  <td>{e.name}</td>
+                  <td style={{textAlign:"left"}}>{e.name}</td>
                   <td>{e.customerID}</td>
                   <td><Image src={`http://localhost:8080/${e.imgpath}`} style={{width:80,height:80,marginLeft:60}}roundedCircle /></td>
                   <td>{e.mobileNumber}</td>
                   <td>{e.email}</td>
                   <td>{e.landMark}</td>
-                  <td>{e.status}</td>
+                  <td>{e.position}</td>
                   <td>
                   <Button style={{backgroundColor:"#121481"}}
                     onClick={()=>navigate(`/customer-edit/${e._id}`)}

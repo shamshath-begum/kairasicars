@@ -37,12 +37,12 @@ let dispatch=useDispatch()
                       getData()
                     },[])
   return <>
-   <div style={{width:650,color:"white"}}>
-      <h1>Loan Details</h1>
+   <div style={{width:"100%",color:"white",backgroundColor:"#6FDCE3"}}>
+      <h1 style={{textAlign:"center"}}>Loan Details</h1>
       <div className=" container-fluid mt-3 ">
-        <Table striped bordered hover style={{width:1670}} >
+        <Table striped bordered hover style={{width:1800}} >
           <thead>
-            <tr>
+            <tr style={{textAlign:"center"}}>
               <th>#</th>
               <th>Name</th>
 
@@ -64,17 +64,17 @@ let dispatch=useDispatch()
           <tbody>
             {loan.map((e, i) => {
               return (
-                <tr key={i} style={{ cursor: "pointer" }}>
+                <tr key={i} style={{ cursor: "pointer",textAlign:"center" }}>
                   <td>{i + 1}</td>
-                  <td>{e.name}</td>
+                  <td style={{textAlign:"left"}}>{e.name}</td>
                   <td>{e.customerID}</td>
-                  <td>{e.loanAmount}</td>
+                  <td style={{textAlign:"right"}}>{e.loanAmount}</td>
                   <td>{e.rateOfInterest}</td>
                   <td>{e.months}</td>
-                  <td>{e.InterestAmount}</td>
-                  <td>{e.TotalAmount}</td>
-                  <td>{e.Capital}</td>
-                  <td>{e.emiAmount}</td>
+                  <td style={{textAlign:"right"}}>{e.InterestAmount}</td>
+                  <td style={{textAlign:"right"}}>{e.TotalAmount}</td>
+                  <td style={{textAlign:"right"}}>{e.Capital}</td>
+                  <td style={{textAlign:"right"}}>{e.emiAmount}</td>
                   <td>{e.startingDate}</td>
                   <td>{e.endingDate}</td>
                  

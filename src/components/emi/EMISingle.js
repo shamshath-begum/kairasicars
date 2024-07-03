@@ -24,8 +24,8 @@ console.log(loan)
 const customer = useSelector((state) => state.customer);
 let reduxCustomer=customer.customer.customers
     console.log(reduxCustomer);
-let customerEMI=reduxCustomer.filter((c)=>customerID===c.customerID)
-console.log(customerEMI[0])
+// let customerEMI=reduxCustomer.filter((c)=>customerID===c.customerID)
+// console.log(customerEMI)
 
 let handleSubmit=async()=>{
 try {
@@ -48,7 +48,7 @@ setLoan(res.data.singleLoanDetails)
 
 }
 
-const{startingDate,emiAmount,loanAmount}=loan
+const{startingDate,emiAmount,loanAmount,name,Capital,InterestAmount}=loan
 
 // const today = new Date();
 //     const day = String(today.getDate()).padStart(2, '0');
@@ -81,7 +81,7 @@ return <>
     <button type='submit'onClick={handleSubmit}><Link>SUBMIT</Link></button>
   </div>
   <h5 className="card-title text-center mt-2">Customer Name:
-  {customerEMI[0] ? customerEMI[0].name : ""}
+  {name}
   </h5>
   <h5 className="card-title text-center mt-2">Loan Amount:{loanAmount}</h5>
     <h5 className="card-title text-center mt-2">Actual Due Date:{startingDate} </h5>
@@ -97,7 +97,7 @@ return <>
   <div className="card-body">
     
     <label style={{fontSize:25,marginLeft:50}}>Paid Date:</label>
-    <input type='text'onChange={(e)=>setPaidDate(e.target.value)}/>
+    <input type='date'onChange={(e)=>setPaidDate(e.target.value)}/>
     
    
     <label style={{fontSize:25,marginLeft:50}}>Paid Amount:</label>
@@ -112,7 +112,7 @@ return <>
 
     {
       paidDate && paidAmount ? (<EMIDetails 
-      name={customerEMI[0].name} image={customerEMI[0].imgpath} modeOfPayment={modeOfPayment} customerID={customerEMI[0].customerID}  paidDate={paidDate} paidAmount={paidAmount} status={status} actualDueDate={startingDate} actualEMIAmount={emiAmount} loanAmount={loanAmount}
+      name={name} capital={Capital} interestAmount={InterestAmount} modeOfPayment={modeOfPayment} customerID={customerID}  paidDate={paidDate} paidAmount={paidAmount} status={status} actualDueDate={startingDate} actualEMIAmount={emiAmount} loanAmount={loanAmount}
       
       
       />):(<p>No PaidDate and NoPaid Amount Is Available</p>)

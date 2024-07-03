@@ -55,5 +55,3 @@ console.log(customerID)
 }
 
 export default EmiSingleCustomerDetails
-
-// navigate("/emi-single-customer-details")

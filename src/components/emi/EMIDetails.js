@@ -6,18 +6,20 @@ import { url } from '../../App';
 import Image from 'react-bootstrap/Image';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import moment from 'moment';
 
-
-function EMIDetails({paidDate,status,name,image,modeOfPayment, paidAmount,actualDueDate,actualEMIAmount,customerID,loanAmount}) {
+function EMIDetails({paidDate,status,name,image,modeOfPayment,capital,interestAmount, paidAmount,actualDueDate,actualEMIAmount,customerID,loanAmount}) {
   let navigate=useNavigate()
-
+   paidDate = moment(paidDate).format('DD-MM-YYYY');
+  console.log(paidDate)
   let handleSave=async()=>{
     try {
-      let res=await axios.post(`${url}/emi-details`,{paidDate,loanAmount,name,modeOfPayment,status,paidAmount,actualDueDate,actualEMIAmount,customerID})
+      let res=await axios.post(`${url}/emi-details`,{paidDate,capital,interestAmount,loanAmount,name,modeOfPayment,status,paidAmount,actualDueDate,actualEMIAmount,customerID})
       console.log(res)
       if(res.status===201){
         toast.success(res.data.message)
-navigate("/admin-dashboard")
+        
+navigate(`/immediate-payment-receipt/${customerID}/${paidDate}`)
       }
     } catch (error) {
       console.log(error)

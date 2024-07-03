@@ -11,12 +11,13 @@ console.log(customerID)
 let customers=useSelector((state)=>state.customer.customer.customers)
 console.log(customers)
 let singleCustomer=customers.filter((c)=>customerID===c.customerID)
-   console.log(singleCustomer[0].name)
+   console.log(singleCustomer)
 
 const{name,officeAddress,mobileNumber}=singleCustomer
 
 
     const[emisingle,setEMISingle]=useState([])
+
 console.log(emisingle)
     let getData=async()=>{
         try {
@@ -49,9 +50,9 @@ console.log(emisingle)
     <div className="row">
   <div className="col-sm-6" style={{}}>
     
-    <h5>Name:{singleCustomer[0].name}</h5>
-    <h5>Address:{singleCustomer[0].officeAddress}</h5>
-    <h5>MobileNumber:{singleCustomer[0].mobileNumber}</h5>
+    <h5>Name:{name}</h5>
+    <h5>Address:{officeAddress}</h5>
+    <h5>MobileNumber:{mobileNumber}</h5>
 
    
   </div>

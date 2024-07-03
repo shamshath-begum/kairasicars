@@ -190,7 +190,7 @@ const [inputdata, setInputData] = useState({
             
 
   return <>
-  <div style={{backgroundColor:"#FEFAF6",color:'#01204E',height:"85vh",paddingTop:50}}>
+  <div style={{backgroundColor:"#BBE9FF",color:'#01204E',height:"85vh",paddingTop:50}}>
     <h1 className='text-center mb-5 '>Customer Masters</h1>
 
     <Form style={{marginLeft:150,marginRight:150}}>
@@ -279,10 +279,7 @@ const [inputdata, setInputData] = useState({
       
     </Form.Select>
     </Form.Group>
-                {/* <Form.Group className="mb-3 col-lg-4" >
-                  <Form.Label>Upload Documents</Form.Label>
-                  <Form.Control type="file" name='documents' id="documents"onChange={handleDocumentFile}  />
-                </Form.Group> */}
+                
                 <Form.Group className="mb-3 col-lg-4" >
                   <Form.Label>AdharNumber</Form.Label>
                   <Form.Control type="number" name='adharNumber' value={inputdata.adharNumber} onChange={setInputValue}  />
@@ -321,11 +318,11 @@ const [inputdata, setInputData] = useState({
                 <Form.Label>Position</Form.Label>
                 <Form.Select  value={inputdata.position }name="position" onChange={setInputValue}>
                
-                <option value="IN" disabled>position</option>
-      <option value="IN">IN</option>
+                <option value="IN" disabled>IN</option>
+      <option value="Others">Others</option>
       <option value="OUT">OUT</option>
       <option value="PENDING">PENDING</option>
-      <option value="others">Others</option>
+      <option value="IN">IN</option>
       
     </Form.Select>
     </Form.Group>

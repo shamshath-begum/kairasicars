@@ -95,7 +95,7 @@ const { name,customerID ,loanAmount,rateOfInterest,months,startingDate,endingDat
   }
     
   return <>
-  <div className="container-fluid pt-5 pb-5" style={{backgroundColor:"#FFFDB5",color:'#01204E',height:"95vh"}}>
+  <div className="container-fluid pt-5 pb-5" style={{backgroundColor:"#BBE9FF",color:'#01204E',height:"100%"}}>
     <h1 className='text-center '>Loan Masters Registration </h1>
     <Form style={{marginLeft:500}}>
               <Row> 
@@ -105,7 +105,7 @@ const { name,customerID ,loanAmount,rateOfInterest,months,startingDate,endingDat
                 </Form.Group>
                 <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Customer ID</Form.Label>
-                  <Form.Control type="number" name='customerID' value={inputdata.customerID} onChange={setInputValue} />
+                  <Form.Control type="string" name='customerID' value={inputdata.customerID} onChange={setInputValue} />
                 </Form.Group>
                 <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Loan Amount</Form.Label>
@@ -121,11 +121,11 @@ const { name,customerID ,loanAmount,rateOfInterest,months,startingDate,endingDat
                 </Form.Group>
                 <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Starting Date</Form.Label>
-                  <Form.Control type="text" name='startingDate' value={inputdata.startingDate} onChange={setInputValue}  />
+                  <Form.Control type="date" name='startingDate' value={inputdata.startingDate} onChange={setInputValue}  />
                 </Form.Group>
                 <Form.Group className="mb-3 col-lg-8" >
                   <Form.Label>Ending Date</Form.Label>
-                  <Form.Control type="text" name='endingDate' value={inputdata.endingDate} onChange={setInputValue}  />
+                  <Form.Control type="date" name='endingDate' value={inputdata.endingDate} onChange={setInputValue}  />
                 </Form.Group> 
                 
                 

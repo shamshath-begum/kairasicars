@@ -151,8 +151,11 @@ console.log("data")
           let getData=async()=>{
             try {
               let res=await axios.get(`${url}/customer-edited/${id}`)
+              console.log(res)
+
               if(res.status===200){
-                setInputData(res.data)
+                let val=setInputData(res.data.customer)
+                console.log(val)
               }
             } catch (error) {
               console.log(error)
