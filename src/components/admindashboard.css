@@ -21,3 +21,6 @@ Link{
     display: flex;
     justify-content: end;
 }
+Link:hover{
+    background-color: rgb(28, 240, 45) !important;
+}

@@ -1,12 +1,10 @@
 import Header from "./components/Header";
 import Home from "./components/Home";
 import SignUp from "./components/pages/SignUp";
-import Login  from "./components/pages/Login"
-import {BrowserRouter,Routes,Route} from "react-router-dom"
+import Login from "./components/pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard";
 import "./App";
-
-
 import Defaulters from "./components/Defaulters";
 import Capital from "./components/Capital";
 import Repose from "./components/Repose";
@@ -22,42 +20,53 @@ import EmiSingleCustomerDetails from "./components/emi/EmiSingleCustomerDetails"
 import SingleCustomerDetails from "./components/emi/SingleCustomerDetails";
 import CustomerSingle from "./components/customer/CustomerSingle";
 import ImmediatePaymentReceipt from "./components/PaymentReceipt.js/ImmediatePaymentReceipt";
+import CustomerDetails from "./components/customer/CustomerDetails";
 // import EmiSingleCustomerDetails from "./components/emi/EmiSingleCustomerDetails";
 
-export const url="http://localhost:8080"
-
+export const url = "http://localhost:8080";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Header/>
-      <Routes>
-        <Route path="/"element={<Home/>}/>
-        <Route path="/login"element={<Login/>}/>
-        <Route path="/signup"element={<SignUp/>}/>
-        <Route path="/admin-dashboard"element={<AdminDashboard/>}/>
-        <Route path="/customer-registration"element={<CustomerRegistration/>}/>
-        <Route path="/customer-edit/:id"element={<CustomerEdit/>}/>
-        <Route path="/customer-single"element={<CustomerSingle/>}/>
-        <Route path="/customer-view/:id"element={<CustomerView/>}/>
-        <Route path="/loan-registration"element={<LoanRegistration/>}/>
-        <Route path="/loan-details"element={<LoanDetails/>}/>
-        <Route path="/loan-details/:customerID"element={<LoanDetails/>}/>
-      
-        <Route path="/emi-single"element={<EMISingle/>}/>
-        <Route path="/emi-multiple"element={<EMIMultiple/>}/>
-        <Route path="/emi-single-view/:customerID"element={<EmiSingleCustomerDetails/>}/>
-        <Route path="/emi-single-customer-details/:customerID"element={<SingleCustomerDetails/>}/>
-        <Route path="/immediate-payment-receipt/:customerID/:paidDate" element={<ImmediatePaymentReceipt/>}/>
-        <Route path="/defaulters"element={<Defaulters/>}/>
-        <Route path="/capital"element={<Capital/>}/>
-        <Route path="/repose"element={<Repose/>}/>
-       
-      </Routes>
-      {/* <Footer/> */}
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/customer-registration"
+            element={<CustomerRegistration />}
+          />
+          <Route path="/customer-edit/:id" element={<CustomerEdit />} />
+          <Route path="/customer-single" element={<CustomerSingle />} />
+          <Route path="/customer-view/:id" element={<CustomerView />} />
+          <Route path="/customer-details" element={<CustomerDetails />} />
+          <Route path="/loan-registration" element={<LoanRegistration />} />
+          <Route path="/loan-details" element={<LoanDetails />} />
+          <Route path="/loan-details/:customerID" element={<LoanDetails />} />
+
+          <Route path="/emi-single" element={<EMISingle />} />
+          <Route path="/emi-multiple" element={<EMIMultiple />} />
+          <Route
+            path="/emi-single-view/:customerID"
+            element={<EmiSingleCustomerDetails />}
+          />
+          <Route
+            path="/emi-single-customer-details/:customerID"
+            element={<SingleCustomerDetails />}
+          />
+          <Route
+            path="/immediate-payment-receipt/:customerID/:paidDate"
+            element={<ImmediatePaymentReceipt />}
+          />
+          <Route path="/defaulters" element={<Defaulters />} />
+          <Route path="/capital" element={<Capital />} />
+          <Route path="/repose" element={<Repose />} />
+        </Routes>
+        {/* <Footer/> */}
       </BrowserRouter>
-      
     </div>
   );
 }
