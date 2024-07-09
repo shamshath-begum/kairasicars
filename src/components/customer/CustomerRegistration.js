@@ -16,7 +16,8 @@ function CustomerRegistration() {
     alternativeNumber: "",
     landMark: "",
     position: "",
-    customerID: "",
+
+    HypothicationNo: "",
     // residentialAddress:"",
     officeAddress: "",
     reference: "",
@@ -61,7 +62,8 @@ function CustomerRegistration() {
       name,
       profession,
       position,
-      customerID,
+
+      HypothicationNo,
       email,
       adharNumber,
       mobileNumber,
@@ -107,7 +109,7 @@ function CustomerRegistration() {
       data.append("mobileNumber", mobileNumber);
       data.append("landMark", landMark);
       data.append("position", position);
-      data.append("customerID", customerID);
+      data.append("HypothicationNo", HypothicationNo);
       data.append("alternativeNumber", alternativeNumber);
       await data.append("image", image);
       // data.append("documents",documents)
@@ -148,7 +150,8 @@ function CustomerRegistration() {
             alternativeNumber: "",
             landMark: "",
             position: "",
-            customerID: "",
+
+            HypothicationNo: "",
             monthlyIncome: "",
             // residentialAddress:"",
             profession: "",
@@ -213,6 +216,7 @@ function CustomerRegistration() {
                 <option value="employee">Employee</option>
                 <option value="selfEmployee">Self Employee</option>
                 <option value="partnership">Partnership</option>
+                <option value="proprietor">Proprietor</option>
                 <option value="governmentEmployee">GovernmentEmployee</option>
                 <option value="privateEmployee">Private Employee</option>
                 <option value="others">Others</option>
@@ -330,11 +334,11 @@ function CustomerRegistration() {
             </Form.Group>
 
             <Form.Group className="mb-3 col-lg-4">
-              <Form.Label>CustomerID</Form.Label>
+              <Form.Label>HypothicationNo</Form.Label>
               <Form.Control
                 type="number"
-                name="customerID"
-                value={inputdata.customerID}
+                name="HypothicationNo"
+                value={inputdata.HypothicationNo}
                 onChange={setInputValue}
               />
             </Form.Group>

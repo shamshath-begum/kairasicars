@@ -18,7 +18,7 @@ function CustomerDetails() {
 
   let getData = async () => {
     try {
-      let res = await axios.get(`${url}/customer-details`);
+      let res = await axios.get(`${url}/customer-details-fully`);
       console.log(res);
       if (res.status === 201) {
         setCustomers(res.data.customers);
@@ -58,7 +58,7 @@ function CustomerDetails() {
             <tr style={{ textAlign: "center" }}>
               <th>#</th>
               <th>Name</th>
-              <th>CustomerID</th>
+              <th>HypothicationNo</th>
               <th>Images</th>
               <th>MobileNumber</th>
               <th>Email</th>
@@ -74,7 +74,7 @@ function CustomerDetails() {
                 <tr key={i} style={{ cursor: "pointer", textAlign: "center" }}>
                   <td>{i + 1}</td>
                   <td style={{ textAlign: "left" }}>{e.name}</td>
-                  <td>{e.customerID}</td>
+                  <td>{e.HypothicationNo}</td>
                   <td>
                     <Image
                       src={`http://localhost:8080/${e.imgpath}`}

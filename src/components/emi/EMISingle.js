@@ -7,8 +7,8 @@ import { url } from "../../App";
 import EMIDetails from "./EMIDetails";
 
 function EMISingle() {
-  const [customerID, setCustomerID] = useState(null);
-  console.log(customerID);
+  const [HypothicationNo, setHypothicationNo] = useState(null);
+  console.log(HypothicationNo);
 
   const [status, setStatus] = useState("");
 
@@ -24,16 +24,16 @@ function EMISingle() {
   const customer = useSelector((state) => state.customer);
   let reduxCustomer = customer.customer.customers;
   console.log(reduxCustomer);
-  // let customerEMI=reduxCustomer.filter((c)=>customerID===c.customerID)
+  // let customerEMI=reduxCustomer.filter((c)=>HypothicationNo===c.HypothicationNo)
   // console.log(customerEMI)
 
   let handleSubmit = async () => {
     try {
-      let res = await axios.get(`${url}/loan-details/${customerID}`);
+      let res = await axios.get(`${url}/loan-details/${HypothicationNo}`);
       console.log(res.data.singleLoanDetails);
       setLoan(res.data.singleLoanDetails);
 
-      // let loanEMIDetails= loan.filter((l)=>accountNumber==l.customerID)
+      // let loanEMIDetails= loan.filter((l)=>accountNumber==l.HypothicationNo)
       // console.log(loanEMIDetails)
       // let details=loanEMIDetails[0].startingDate
       // console.log(details)
@@ -74,10 +74,12 @@ function EMISingle() {
             <h3 className="card-title text-center mt-1 mb-4">
               Customer EMI Details
             </h3>
-            <label style={{ marginLeft: 560 }}>Enter Your CustomerID :</label>
+            <label style={{ marginLeft: 560 }}>
+              Enter Your HypothicationNo :
+            </label>
             <input
               type="text"
-              onChange={(e) => setCustomerID(e.target.value)}
+              onChange={(e) => setHypothicationNo(e.target.value)}
             />
             <button type="submit" onClick={handleSubmit}>
               <Link>SUBMIT</Link>
@@ -119,15 +121,40 @@ function EMISingle() {
             />
 
             <label style={{ fontSize: 25, marginLeft: 50 }}>Status:</label>
+
             <input type="text" onChange={(e) => setStatus(e.target.value)} />
 
-            <label style={{ fontSize: 25, marginLeft: 50 }}>
-              ModeOfPayment:
-            </label>
-            <input
+            <div
+              style={{
+                display: "flex",
+                position: "relative",
+                left: 1100,
+                bottom: 30,
+              }}
+            >
+              <label style={{ fontSize: 25, marginLeft: 50 }}>
+                ModeOfPayment:
+              </label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                style={{ width: 150, height: 34 }}
+                onChange={(e) => setModeOfPayment(e.target.value)}
+              >
+                <option selected>ModeOfPayment:</option>
+                <option value="cash">cash</option>
+                <option value="cheque">cheque</option>
+                <option value="pay-tm">pay-tm</option>
+                <option value="google-pay">google-pay</option>
+                <option value="net-banking">net-banking</option>
+                <option value="phone pay">phone pay</option>
+                <option value="others">others</option>
+              </select>
+            </div>
+            {/* <input
               type="text"
               onChange={(e) => setModeOfPayment(e.target.value)}
-            />
+            /> */}
 
             {paidDate && paidAmount ? (
               <EMIDetails
@@ -135,7 +162,7 @@ function EMISingle() {
                 capital={Capital}
                 interestAmount={InterestAmount}
                 modeOfPayment={modeOfPayment}
-                customerID={customerID}
+                HypothicationNo={HypothicationNo}
                 paidDate={paidDate}
                 paidAmount={paidAmount}
                 status={status}

@@ -11,7 +11,14 @@ import { url } from "../../App";
 function LoanRegistration() {
   const [inputdata, setInputData] = useState({
     name: "",
-    customerID: "",
+    chequeNo: "",
+    vehicleNo: "",
+    make: "",
+    model: "",
+    insuranceExpiry: "",
+    agreementDate: "",
+    dueDateOn: "",
+    HypothicationNo: "",
     loanAmount: "",
     rateOfInterest: "",
     months: "",
@@ -38,7 +45,14 @@ function LoanRegistration() {
 
     const {
       name,
-      customerID,
+      chequeNo,
+      vehicleNo,
+      make,
+      model,
+      insuranceExpiry,
+      agreementDate,
+      dueDateOn,
+      HypothicationNo,
       loanAmount,
       rateOfInterest,
       months,
@@ -48,8 +62,8 @@ function LoanRegistration() {
 
     if (name === "") {
       toast.error("name is Required !");
-    } else if (customerID === "") {
-      toast.error("customerID is Required !");
+    } else if (HypothicationNo === "") {
+      toast.error("HypothicationNo is Required !");
     } else if (loanAmount === "") {
       toast.error("loanAmount is Required !");
     } else if (rateOfInterest === "") {
@@ -63,7 +77,14 @@ function LoanRegistration() {
       try {
         let res = await axios.post(`${url}/loan-registration`, {
           name,
-          customerID,
+          chequeNo,
+          vehicleNo,
+          make,
+          model,
+          insuranceExpiry,
+          agreementDate,
+          dueDateOn,
+          HypothicationNo,
           loanAmount,
           rateOfInterest,
           months,
@@ -77,7 +98,14 @@ function LoanRegistration() {
             ...inputdata,
             name: "",
             endingDate: "",
-            customerID: "",
+            chequeNo: "",
+            vehicleNo: "",
+            make: "",
+            model: "",
+            insuranceExpiry: "",
+            agreementDate: "",
+            dueDateOn: "",
+            HypothicationNo: "",
             loanAmount: "",
             startingDate: "",
             rateOfInterest: "",
@@ -115,14 +143,85 @@ function LoanRegistration() {
               />
             </Form.Group>
             <Form.Group className="mb-3 col-lg-8">
-              <Form.Label>Customer ID</Form.Label>
+              <Form.Label>Hypothication No</Form.Label>
               <Form.Control
                 type="string"
-                name="customerID"
-                value={inputdata.customerID}
+                name="HypothicationNo"
+                value={inputdata.HypothicationNo}
                 onChange={setInputValue}
               />
             </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Cheque No</Form.Label>
+              <Form.Control
+                type="number"
+                name="chequeNo"
+                value={inputdata.chequeNo}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Vehicle No</Form.Label>
+              <Form.Control
+                type="text"
+                name="vehicleNo"
+                value={inputdata.vehicleNo}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Make</Form.Label>
+              <Form.Control
+                type="text"
+                name="make"
+                value={inputdata.make}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Model</Form.Label>
+              <Form.Control
+                type="text"
+                name="model"
+                value={inputdata.model}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>InsuranceExpiry</Form.Label>
+              <Form.Control
+                type="Date"
+                name="insuranceExpiry"
+                value={inputdata.insuranceExpiry}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Agreement Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="agreementDate"
+                value={inputdata.agreementDate}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 col-lg-8">
+              <Form.Label>Due Date On</Form.Label>
+              <Form.Control
+                type="date"
+                name="dueDateOn"
+                value={inputdata.dueDateOn}
+                onChange={setInputValue}
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3 col-lg-8">
               <Form.Label>Loan Amount</Form.Label>
               <Form.Control

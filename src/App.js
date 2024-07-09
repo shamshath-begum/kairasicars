@@ -45,20 +45,23 @@ function App() {
           <Route path="/customer-details" element={<CustomerDetails />} />
           <Route path="/loan-registration" element={<LoanRegistration />} />
           <Route path="/loan-details" element={<LoanDetails />} />
-          <Route path="/loan-details/:customerID" element={<LoanDetails />} />
+          <Route
+            path="/loan-details/:HypothicationNo"
+            element={<LoanDetails />}
+          />
 
           <Route path="/emi-single" element={<EMISingle />} />
           <Route path="/emi-multiple" element={<EMIMultiple />} />
           <Route
-            path="/emi-single-view/:customerID"
+            path="/emi-single-view/:HypothicationNo"
             element={<EmiSingleCustomerDetails />}
           />
           <Route
-            path="/emi-single-customer-details/:customerID"
+            path="/emi-single-customer-details/:HypothicationNo"
             element={<SingleCustomerDetails />}
           />
           <Route
-            path="/immediate-payment-receipt/:customerID/:paidDate"
+            path="/immediate-payment-receipt/:HypothicationNo/:paidDate"
             element={<ImmediatePaymentReceipt />}
           />
           <Route path="/defaulters" element={<Defaulters />} />

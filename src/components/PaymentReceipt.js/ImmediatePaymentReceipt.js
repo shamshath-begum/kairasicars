@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 function ImmediatePaymentReceipt() {
-  let { customerID, paidDate } = useParams();
-  console.log(customerID, paidDate);
+  let { HypothicationNo, paidDate } = useParams();
+  console.log(HypothicationNo, paidDate);
 
   const [loan, setLoan] = useState({});
   const [emi, setEMI] = useState([]);
@@ -16,28 +16,42 @@ function ImmediatePaymentReceipt() {
 
   let singlepaymentReceipt = emi.filter((e) => {
     const paidDate = new Date(e.paidDate);
+    console.log(paidDate.getMonth());
     return paidDate.getMonth() === new Date().getMonth();
   });
   console.log(singlepaymentReceipt);
-  //   let defaultAmount = singlepaymentReceipt[0].defaultAmount;
-  //   console.log(defaultAmount);
-  let getData = async () => {
+
+  let defaultAmount =
+    singlepaymentReceipt.length > 0
+      ? singlepaymentReceipt[0].defaultAmount
+      : "N/A";
+
+  // let defaultAmount = singlepaymentReceipt[0].defaultAmount;
+  // console.log(defaultAmount);
+  let getLoanData = async () => {
     try {
-      let res = await axios.get(`${url}/loan-details/${customerID}`);
+      let res = await axios.get(`${url}/loan-details/${HypothicationNo}`);
       console.log(res.data.singleLoanDetails);
       setLoan(res.data.singleLoanDetails);
     } catch (error) {
       console.log(error);
     }
-    let response = await axios.get(
-      `${url}/emi-single-customer-view/${customerID}`
-    );
-    console.log(response.data.SingleCustomerEMIDetails);
-    setEMI(response.data.SingleCustomerEMIDetails);
+  };
+  let getEMIData = async () => {
+    try {
+      let response = await axios.get(
+        `${url}/emi-single-customer-view/${HypothicationNo}`
+      );
+      console.log(response.data.SingleCustomerEMIDetails);
+      setEMI(response.data.SingleCustomerEMIDetails);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    getData();
+    getLoanData();
+    getEMIData();
   }, []);
   return (
     <>
@@ -73,8 +87,8 @@ function ImmediatePaymentReceipt() {
         >
           <div>
             <h4>
-              CustomerID &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {loan.customerID}
+              HypothicationNo &nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {loan.HypothicationNo}
             </h4>
             <h4>
               Nmae&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,13 +99,13 @@ function ImmediatePaymentReceipt() {
               {loan.emiAmount}
             </h4>
             <h4>Interest Amount:{loan.InterestAmount}</h4>
-            {/* <h4>Default Amount:{defaultAmount}</h4> */}
+            <h4>Default Amount:{defaultAmount}</h4>
           </div>
           <div>
             <h4>date&nbsp;&nbsp;:&nbsp;&nbsp;{paidDate}</h4>
             <h3>Mode Of Payment:</h3>
 
-            <input type="checkbox" name="cash" />
+            <input type="radio" name="mode of payment" value="cash" />
             <label
               for="cash"
               id="cash"
@@ -100,7 +114,7 @@ function ImmediatePaymentReceipt() {
               Cash
             </label>
 
-            <input type="checkbox" name="cheque" />
+            <input type="radio" name="mode of payment" value="cheque" />
             <label
               for="cheque"
               id="cheque"
@@ -109,7 +123,7 @@ function ImmediatePaymentReceipt() {
               Cheque
             </label>
 
-            <input type="checkbox" name="net_banking" />
+            <input type="radio" name="mode of payment" value="net_banking" />
             <label
               for="net_banking"
               id="net_banking"
@@ -118,7 +132,7 @@ function ImmediatePaymentReceipt() {
               Net Banking
             </label>
 
-            <input type="checkbox" name="Paytm" />
+            <input type="radio" name="mode of payment" value="paytm" />
             <label
               for="Paytm"
               id="Paytm"
@@ -127,7 +141,7 @@ function ImmediatePaymentReceipt() {
               Paytm
             </label>
 
-            <input type="checkbox" name="G-Pay" />
+            <input type="radio" name="mode of payment" value="G-Pay" />
             <label
               for="G-Pay"
               id="G-Pay"
@@ -136,7 +150,7 @@ function ImmediatePaymentReceipt() {
               G-Pay
             </label>
 
-            <input type="checkbox" name="phone pay" />
+            <input type="radio" name="mode of payment" value="phone pay" />
             <label
               for="phone pay"
               id="Phone Pay"
@@ -145,7 +159,7 @@ function ImmediatePaymentReceipt() {
               Phone Pay
             </label>
 
-            <input type="checkbox" name="others" />
+            <input type="radio" name="mode of payment" value="others" />
             <label for="others" id="others" style={{ fontSize: 20 }}>
               Others
             </label>

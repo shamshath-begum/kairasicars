@@ -15,8 +15,6 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
 function AdminDashboard() {
-  const [input, setInput] = useState("");
-  const [Results, setResults] = useState([]);
   const user = useSelector((state) => state.admin);
   console.log(user);
   const dispatch = useDispatch();
@@ -25,51 +23,26 @@ function AdminDashboard() {
   let [customers, setCustomers] = useState([]);
 
   console.log(customers);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // let getData=async()=>{
-  //   try {
-  //     let res=await axios.get(`${url}/customer-details`)
-  //     if(res.status===201){
-  //       setCustomers(res.data.customers)
-  //       dispatch(details(res.data))
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  //               }
+  useEffect(() => {
+    fetchCustomers();
+  }, [searchQuery]);
 
-  //               useEffect(()=>{
-  //                 getData()
-  //               },[])
-
-  // let deleteCustomer = async (id) => {
-  //   try {
-  //     let res = await axios.delete(`${url}/delete/${id}`);
-  //     if (res.status === 200) {
-  //       console.log(res);
-  //       // getData()
-  //       toast.success(res.data.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.rresponse.data.message);
-  //   }
-  // };
-
-  const fetchData = async (value) => {
-    let res = await axios.get(`${url}/customer-details`);
-    console.log(res.data);
-    let customers = res.data.customers;
-
-    const results = customers.filter((c) => {
-      return c && c.name && c.name.toLowerCase().includes(value);
-    });
-    console.log(results);
-    setResults(results);
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get(
+        `${url}/customer-details?q=${searchQuery}`
+      );
+      console.log(response);
+      setCustomers(response.data);
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+    }
   };
 
-  let handleChange = async (value) => {
-    setCustomers(value);
-    fetchData(value);
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -219,7 +192,8 @@ function AdminDashboard() {
                     <Dropdown.Item>
                       {" "}
                       <Link
-                        to="/emi-single-view/:customerID"
+                        to="/emi-single-view/:
+HypothicationNo"
                         style={{
                           textDecoration: "none",
                           marginLeft: 40,
@@ -250,7 +224,8 @@ function AdminDashboard() {
             </div>
             <Link
               style={{ textDecoration: "none" }}
-              to="/emi-single-view/:customerID"
+              to="/emi-single-view/:
+HypothicationNo"
             >
               {" "}
               <li>Payment Receipt</li>
@@ -336,28 +311,16 @@ function AdminDashboard() {
           </ul>
         </div>
         <div>
-          <div className="search">
-            <h1 style={{ color: "Black", marginRight: 300 }}>
-              Customers Details
-            </h1>
-            <div style={{ marginTop: 20 }}>
-              <label
-                style={{ color: "Black", fontSize: 25, fontWeight: "bold" }}
-              >
-                Search&nbsp;&nbsp;:&nbsp;&nbsp;
-              </label>
-              <input
-                value={customers}
-                placeholder="Type to Search"
-                onChange={(e) => handleChange(e.target.value)}
-                style={{
-                  marginBottom: 5,
-                  marginLeft: 5,
-                  height: 37,
-                  width: 300,
-                }}
-              />
-            </div>
+          <h2>Customer List</h2>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div />
+            <input
+              type="text"
+              placeholder="Search by name"
+              value={searchQuery}
+              onChange={handleSearch}
+              style={{ marginBottom: "20px", padding: "5px", width: "200px" }}
+            />
           </div>
 
           <div className=" container mt-3 ">
@@ -366,7 +329,7 @@ function AdminDashboard() {
                 <tr style={{ textAlign: "center" }}>
                   <th>#</th>
                   <th>Name</th>
-                  <th>CustomerID</th>
+                  <th>HypothicationNo</th>
                   <th>Images</th>
                   <th>MobileNumber</th>
                   <th>Email</th>
@@ -376,7 +339,7 @@ function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {Results.map((e, i) => {
+                {customers.map((e, i) => {
                   return (
                     <tr
                       key={i}
@@ -384,7 +347,7 @@ function AdminDashboard() {
                     >
                       <td>{i + 1}</td>
                       <td style={{ textAlign: "left" }}>{e.name}</td>
-                      <td>{e.customerID}</td>
+                      <td>{e.HypothicationNo}</td>
                       <td>
                         <Image
                           src={`http://localhost:8080/${e.imgpath}`}

@@ -7,6 +7,7 @@ import { url } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loanRedux } from "../../redux/loanSlice";
+import moment from "moment";
 
 function LoanDetails() {
   let [loan, setLoan] = useState([]);
@@ -55,7 +56,7 @@ function LoanDetails() {
                 <th>#</th>
                 <th>Name</th>
 
-                <th>CustomerID</th>
+                <th>HypothicationNo</th>
                 <th>LoanAmount</th>
                 <th>RateOfInterest</th>
                 <th>months</th>
@@ -78,7 +79,7 @@ function LoanDetails() {
                   >
                     <td>{i + 1}</td>
                     <td style={{ textAlign: "left" }}>{e.name}</td>
-                    <td>{e.customerID}</td>
+                    <td>{e.HypothicationNo}</td>
                     <td style={{ textAlign: "right" }}>{e.loanAmount}</td>
                     <td>{e.rateOfInterest}</td>
                     <td>{e.months}</td>
@@ -86,8 +87,8 @@ function LoanDetails() {
                     <td style={{ textAlign: "right" }}>{e.TotalAmount}</td>
                     <td style={{ textAlign: "right" }}>{e.Capital}</td>
                     <td style={{ textAlign: "right" }}>{e.emiAmount}</td>
-                    <td>{e.startingDate}</td>
-                    <td>{e.endingDate}</td>
+                    <td>{moment(e.startingDate).format("DD.MM.YYYY")}</td>
+                    <td>{moment(e.endingDate).format("DD.MM.YYYY")}</td>
 
                     <td>
                       <Button
