@@ -12,6 +12,7 @@ import moment from "moment";
 function EMIMultiple() {
   const [EMI, setEMI] = useState([]);
   console.log(EMI);
+  console.log(EMI.paidDate);
 
   let dispatch = useDispatch();
 
@@ -32,6 +33,14 @@ function EMIMultiple() {
   useEffect(() => {
     getData();
   }, []);
+
+  const formatPaidDate = (paidDate) => {
+    let date = new Date(paidDate);
+    let day = String(date.getUTCDate()).padStart(2, "0");
+    let month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    let year = date.getUTCFullYear();
+    return `${day}.${month}.${year}`;
+  };
 
   let deleteEMI = () => {};
 
@@ -74,8 +83,8 @@ function EMIMultiple() {
                   <td style={{ textAlign: "left" }}>{e.name}</td>
                   {/* <td><Image src={`http://localhost:8080/${e.imgpath}`} style={{width:80,height:80,marginLeft:60}}roundedCircle /></td> */}
                   <td style={{ textAlign: "right" }}>{e.loanAmount}</td>
-                  <td>{moment(e.actualDueDate).format("DD.MM.YYYY")}</td>
-                  <td>{moment(e.paidDate).format("DD.MM.YYYY")}</td>
+                  <td>{formatPaidDate(e.actualDueDate)}</td>
+                  <td>{formatPaidDate(e.paidDate)}</td>
                   <td style={{ textAlign: "right" }}>{e.actualEMIAmount}</td>
                   <td style={{ textAlign: "right" }}>{e.paidAmount}</td>
                   <td style={{ textAlign: "right" }}>{e.capital}</td>

@@ -66,6 +66,14 @@ function EMISingle() {
     }
   };
 
+  const formatPaidDate = (paidDate) => {
+    let date = new Date(paidDate);
+    let day = String(date.getUTCDate()).padStart(2, "0");
+    let month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    let year = date.getUTCFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -93,7 +101,7 @@ function EMISingle() {
             Loan Amount:{loanAmount}
           </h5>
           <h5 className="card-title text-center mt-2">
-            Actual Due Date:{startingDate}{" "}
+            Actual Due Date:{formatPaidDate(startingDate)}{" "}
           </h5>
           <h5 className="card-title text-center mt-2">
             Actual EMI Amount:{emiAmount}

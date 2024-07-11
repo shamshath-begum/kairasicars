@@ -43,6 +43,14 @@ function LoanDetails() {
     }
   };
 
+  const formatPaidDate = (paidDate) => {
+    let date = new Date(paidDate);
+    let day = String(date.getUTCDate()).padStart(2, "0");
+    let month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    let year = date.getUTCFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
   return (
     <>
       <div
@@ -87,8 +95,8 @@ function LoanDetails() {
                     <td style={{ textAlign: "right" }}>{e.TotalAmount}</td>
                     <td style={{ textAlign: "right" }}>{e.Capital}</td>
                     <td style={{ textAlign: "right" }}>{e.emiAmount}</td>
-                    <td>{moment(e.startingDate).format("DD.MM.YYYY")}</td>
-                    <td>{moment(e.endingDate).format("DD.MM.YYYY")}</td>
+                    <td>{formatPaidDate(e.startingDate)}</td>
+                    <td>{formatPaidDate(e.endingDate)}</td>
 
                     <td>
                       <Button
